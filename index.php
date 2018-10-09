@@ -75,8 +75,49 @@ else
          }
          else
          {  //triggers have been applied & table is ready for data insertion
+            if($argc>1)
+            {
+                //Check if the argument passed is a csv file
+                $checkForCsv= array();
+                $checkForCsv= explode('.',$argv[1]);
+                if($checkForCsv[1]=='csv')
+                {
+                    //Open the csv file and read it line by line
+                    $file = fopen("/var/www/CSVReader/".$argv[1], 'r');
+                    while (($user= fgetcsv($file)) !== FALSE) {
 
-             echo $argv[1];
+                        //Obtain the string values of Array Elements
+                        $name=strval($user[0]);
+                        $surname=strval($user[1]);
+                        $email=strval($user[2]);
+
+
+
+                        //if the Email Address is valid
+
+                        if(filter_var($email, FILTER_VALIDATE_EMAIL) && $user[0]!=NULL)
+                        {
+                            //insert record in Database
+                           // echo "Name is $name  Surname is $surname and Email is $email";
+                            $insert_stmnt="INSERT INTO users(name,surname,email) VALUES($$$name$$,$$$surname$$,$$$email$$);";
+                            $result=pg_query($dbConnect,$insert_stmnt);
+                             echo "Record for $name inserted \r\n";
+
+                        }
+                        else {
+                            echo "Email:$email for the person $name is Invalid , Cannot enter in database\r\n";
+                        }
+
+
+                    }
+
+                    fclose($file);
+                }
+                else
+                {
+                    echo "the file is not a CSV file";
+                }
+            }
 
          }
 
