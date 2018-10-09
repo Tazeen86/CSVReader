@@ -92,23 +92,36 @@ else
                         $email=strval($user[2]);
 
 
+                      if($name=='name' && $surname == 'surname' && $email == 'email')
+                       {
+                         //Check for Column Names
 
-                        //if the Email Address is valid
+                       }
+                      else {
+                          /*If Record is A Value Set then
+                          Check if the Email Address is valid and the name is NOT NULL*/
 
-                        if(filter_var($email, FILTER_VALIDATE_EMAIL) && $user[0]!=NULL)
-                        {
-                            //insert record in Database
-                           // echo "Name is $name  Surname is $surname and Email is $email";
-                            $insert_stmnt="INSERT INTO users(name,surname,email) VALUES($$$name$$,$$$surname$$,$$$email$$);";
-                            $result=pg_query($dbConnect,$insert_stmnt);
-                             echo "Record for $name inserted \r\n";
-
-                        }
-                        else {
-                            echo "Email:$email for the person $name is Invalid , Cannot enter in database\r\n";
-                        }
+                          if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($name)) {
+                              //insert record in Database
+                              // echo "Name is $name  Surname is $surname and Email is $email";
+                              $insertStmnt = "INSERT INTO users(name,surname,email) VALUES($$$name$$,$$$surname$$,$$$email$$);";
 
 
+                              if (@pg_query($dbConnect, $insertStmnt))
+                                  echo "Record for $name inserted \r\n";
+                              else
+                                  echo "Error Inserting Record for $name , Check for Duplicates \r\n";
+
+
+                          } else {
+                              if(empty($name))
+                              {
+                                  echo "Name of user cannot be NULL \r\n";
+                              }
+                              else
+                              {echo "Invalid Email: $email for user $name , Cannot enter in database\r\n";}
+                          }
+                      }
                     }
 
                     fclose($file);
