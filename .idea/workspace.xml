@@ -4,6 +4,7 @@
     <list default="true" id="a200f428-b50c-4a18-ab07-5d085772b5b8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/user_upload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,13 +16,14 @@
     <session id="-46909913">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="5" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.48" value="1" />
           <entry key="project.open.time.56" value="2" />
+          <entry key="project.open.time.62" value="1" />
           <entry key="project.open.time.63" value="1" />
           <entry key="project.open.time.86" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -36,12 +38,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="5909" />
+          <entry key="php" value="7379" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PHP" value="5909" />
+          <entry key="PHP" value="7379" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.test" />
@@ -58,11 +60,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/user_upload.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1733">
-              <caret line="155" column="21" lean-forward="true" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
+            <state relative-caret-position="314">
+              <caret line="207" column="9" lean-forward="true" selection-start-line="207" selection-start-column="9" selection-end-line="207" selection-end-column="9" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
-                <element signature="e#4549#6337#0#PHP" />
+                <element signature="n#get_option_params#0;n#!!top" />
+                <element signature="n#display_help#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -102,7 +105,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -118,6 +120,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -161,18 +164,18 @@
       <workItem from="1539093990223" duration="86000" />
       <workItem from="1539119001346" duration="6612000" />
       <workItem from="1539126584835" duration="5146000" />
-      <workItem from="1539132390736" duration="876000" />
+      <workItem from="1539132390736" duration="5895000" />
+      <workItem from="1539140290107" duration="2196000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33395000" />
+    <option name="totallyTimeSpent" value="40610000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="88" y="111" width="1236" height="553" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25630254" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26050422" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -203,11 +206,12 @@
     <entry file="file://$PROJECT_DIR$/index.php" />
     <entry file="file://$PROJECT_DIR$/user_upload.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1733">
-          <caret line="155" column="21" lean-forward="true" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
+        <state relative-caret-position="314">
+          <caret line="207" column="9" lean-forward="true" selection-start-line="207" selection-start-column="9" selection-end-line="207" selection-end-column="9" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
-            <element signature="e#4549#6337#0#PHP" />
+            <element signature="n#get_option_params#0;n#!!top" />
+            <element signature="n#display_help#0;n#!!top" />
           </folding>
         </state>
       </provider>
