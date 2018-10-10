@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a200f428-b50c-4a18-ab07-5d085772b5b8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/user_upload.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,12 +15,13 @@
     <session id="-46909913">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.21" value="1" />
-          <entry key="project.open.time.56" value="1" />
+          <entry key="project.open.time.48" value="1" />
+          <entry key="project.open.time.56" value="2" />
           <entry key="project.open.time.63" value="1" />
           <entry key="project.open.time.86" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -36,12 +36,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="4469" />
+          <entry key="php" value="5909" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PHP" value="4469" />
+          <entry key="PHP" value="5909" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.test" />
@@ -57,7 +57,15 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/user_upload.php">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1733">
+              <caret line="155" column="21" lean-forward="true" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
+              <folding>
+                <element signature="e#6#87#0#PHP" expanded="true" />
+                <element signature="e#4549#6337#0#PHP" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -69,6 +77,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/user_upload.php" />
       </list>
     </option>
   </component>
@@ -82,9 +91,9 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="132" />
-    <option name="y" value="75" />
-    <option name="width" value="1161" />
+    <option name="x" value="88" />
+    <option name="y" value="111" />
+    <option name="width" value="1236" />
     <option name="height" value="553" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -150,18 +159,20 @@
       <workItem from="1539035156896" duration="8956000" />
       <workItem from="1539072919539" duration="11719000" />
       <workItem from="1539093990223" duration="86000" />
-      <workItem from="1539119001346" duration="4945000" />
+      <workItem from="1539119001346" duration="6612000" />
+      <workItem from="1539126584835" duration="5146000" />
+      <workItem from="1539132390736" duration="876000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25706000" />
+    <option name="totallyTimeSpent" value="33395000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="132" y="75" width="1161" height="553" extended-state="0" />
+    <frame x="88" y="111" width="1236" height="553" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26278028" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25630254" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -189,15 +200,17 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/index.php" />
+    <entry file="file://$PROJECT_DIR$/user_upload.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="80" column="38" lean-forward="true" selection-start-line="80" selection-start-column="38" selection-end-line="80" selection-end-column="38" />
+        <state relative-caret-position="1733">
+          <caret line="155" column="21" lean-forward="true" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <element signature="e#4549#6337#0#PHP" />
+          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user_upload.php">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

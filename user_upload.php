@@ -6,12 +6,35 @@
  * Time: 2:49 PM
  */
 
+//get command line parameters before setting up Database connection
+$options="u:p:h:";
+$longOpts=array("file:","database:","dry_run::","help::");
+$params=getopt($options,$longOpts);
 
+var_dump($params);
 //Setting up variable to establish DB connection
-$dbServername="localhost";
-$dbUsername= "root";
-$dbPassword ="root";
-$dbName="test";
+$dbServername=isset($params['h'])?$params['h']:'localhost';//localhost
+$dbUsername= isset($params['u'])?$params['u']:'root';//root
+$dbPassword =isset($params['p'])?$params['p']:'root';//root
+$dbName=isset($params['database'])?$params['database']:'test';//test
+if(isset($params['help']))
+{
+    //Display help text on the Command Line Interface
+
+    echo " This Program takes a CSV file and inserts its content into a PostgresSQL Database \r\n";
+
+    echo "--file Enter the name of CSV file to be processed \r\n";
+
+    echo "--database  Enter the name of your PostgreSQL Database \r\n";
+
+    echo "-h  Enter the hostname \r\n";
+
+    echo "-p  Enter the password for your Database \r\n";
+
+    echo "-u  Enter the username for your Database \r\n";
+
+
+}
 $connection_string = "host=$dbServername user=$dbUsername password=$dbPassword dbname=$dbName";
 
 // establishing a database connection
@@ -75,57 +98,65 @@ else
          }
          else
          {  //triggers have been applied & table is ready for data insertion
-            if($argc>1)
+            if(isset($params['file']))
             {
                 //Check if the argument passed is a csv file
                 $checkForCsv= array();
-                $checkForCsv= explode('.',$argv[1]);
+                $checkForCsv= explode('.',$params['file']);
                 if($checkForCsv[1]=='csv')
                 {
                     //Open the csv file and read it line by line
-                    $file = fopen("/var/www/CSVReader/".$argv[1], 'r');
-                    while (($user= fgetcsv($file)) !== FALSE) {
+                    $file=fopen("/var/www/CSVReader/".$params['file'],'r');
+                    if($file)
+                    {
 
-                        //Obtain the string values of Array Elements
-                        $name=strval($user[0]);
-                        $surname=strval($user[1]);
-                        $email=strval($user[2]);
+                       while (($user = fgetcsv($file)) !== FALSE) {
+
+                           //Obtain the string values of Array Elements
+                           $name = strval($user[0]);
+                           $surname = strval($user[1]);
+                           $email = strval($user[2]);
 
 
-                      if($name=='name' && $surname == 'surname' && $email == 'email')
-                       {
-                         //Check for Column Names
+                           if ($name == 'name' && $surname == 'surname' && $email == 'email') {
+                               //Check for Column Names
 
+                           } else {
+                               /*If Record is A Value Set then
+                               Check if the Email Address is valid and the name is NOT NULL*/
+
+                               if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($name)) {
+                                   //insert record in Database
+                                   // echo "Name is $name  Surname is $surname and Email is $email";
+                                   $insertStmnt = "INSERT INTO users(name,surname,email) VALUES($$$name$$,$$$surname$$,$$$email$$);";
+
+
+                                   if (@pg_query($dbConnect, $insertStmnt))
+                                       echo "Record for $name inserted \r\n";
+                                   else
+                                       echo "Error Inserting Record for $name , Check for Duplicates \r\n";
+
+
+                               } else {
+                                   if (empty($name)) {
+                                       echo "Name of user cannot be NULL \r\n";
+                                   } else {
+                                       echo "Invalid Email: $email for user $name , Cannot enter in database\r\n";
+                                   }
+                               }
+                           }
                        }
-                      else {
-                          /*If Record is A Value Set then
-                          Check if the Email Address is valid and the name is NOT NULL*/
-
-                          if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($name)) {
-                              //insert record in Database
-                              // echo "Name is $name  Surname is $surname and Email is $email";
-                              $insertStmnt = "INSERT INTO users(name,surname,email) VALUES($$$name$$,$$$surname$$,$$$email$$);";
 
 
-                              if (@pg_query($dbConnect, $insertStmnt))
-                                  echo "Record for $name inserted \r\n";
-                              else
-                                  echo "Error Inserting Record for $name , Check for Duplicates \r\n";
-
-
-                          } else {
-                              if(empty($name))
-                              {
-                                  echo "Name of user cannot be NULL \r\n";
-                              }
-                              else
-                              {echo "Invalid Email: $email for user $name , Cannot enter in database\r\n";}
-                          }
-                      }
+                       fclose($file);
+                    }
+                    else
+                    {
+                        echo "Cannot Open File \r\n";
                     }
 
-                    fclose($file);
                 }
+
                 else
                 {
                     echo "the file is not a CSV file";
