@@ -8,7 +8,7 @@ the script assumes the user will create the database and provide the database na
 the script only creates the database table when the user enters --create_table directive.
 
 example run
-tazeen > php user_upload.php --create_table --file  <filename> --database  <databasename> -u user -p pass -h host
+tazeen > php user_upload.php --create_table --file filename --database  databasename -u user -p pass -h host
  
  tazeen > php user_upload.php --create_table directive creates a table named users
 
