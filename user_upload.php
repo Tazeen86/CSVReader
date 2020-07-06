@@ -13,8 +13,8 @@ $params=get_option_params();
 
 //Setting up variable to establish DB connection
 $dbServername=isset($params['h'])?$params['h']:'localhost';//localhost
-$dbUsername= isset($params['u'])?$params['u']:'root';//root
-$dbPassword =isset($params['p'])?$params['p']:'root';//root
+$dbUsername= isset($params['u'])?$params['u']:'postgres';//root
+$dbPassword =isset($params['p'])?$params['p']:'tazeen';//root
 $dbName=isset($params['database'])?$params['database']:'test';//test
 
 if(isset($params['help']))
@@ -35,14 +35,48 @@ if (!$GLOBALS['connect']){
     echo "Database Not Connected \r\n";
 }
 else
-{ create_table_structure($params); //create the table
+{ 
+ if(isset($params['create_table']))
+    create_table_structure($params); //create the table
+  if(isset($params['file']))
+{
+   $query="SELECT EXISTS (
+   SELECT FROM  information_schema.tables 
+   WHERE  table_schema = 'public'
+   AND    table_name   = 'users'
+   );";
+
+     $result=pg_query($GLOBALS['connect'], $query);
+     $if_exists=pg_fetch_assoc($result);
+     
+      if($if_exists['exists']=='f')  
+       { 
+         echo " table not created \r\n";
+       }
+       else
+        {
+          //triggers have been applied & table is ready for data insertion
+               check_file_is_csv($params);
+         }
+         
+       
 }
+else
+ {
+     //file parameter has not been provided
+     echo "Please provide a filename \r\n";
+
+ }
+
+
+}
+
 
 function  get_option_params()
 {
     // get command line parameters
     $options="u:p:h:";
-    $longOpts=array("file:","database:","dry_run::","help::");
+    $longOpts=array("file:","database:","dry_run::","help::","create_table::");
     $params=getopt($options,$longOpts);
     return $params;
 }
@@ -55,6 +89,8 @@ function display_help()
     echo "--file Enter the name of CSV file to be processed \r\n";
 
     echo "--database  Enter the name of your PostgreSQL Database \r\n";
+
+    echo "--create_table Enter this command to create a new table called users\r\n";
 
     echo "-h  Enter the hostname \r\n";
 
@@ -69,7 +105,7 @@ function create_table_structure($params)
     $query="DROP TABLE IF EXISTS users;";
     pg_query($GLOBALS['connect'], $query);
 // Create new users table
-    $query= "CREATE TABLE IF NOT EXISTS users( name varchar(80) NOT NULL CHECK(upper(name)=name), surname varchar(80) CHECK(upper(surname)=surname) , email text NOT NULL UNIQUE CHECK(lower(email)=email)  );";
+    $query= "CREATE TABLE IF NOT EXISTS users( name varchar(80) NOT NULL, surname varchar(80)  , email text NOT NULL UNIQUE CHECK(lower(email)=email)  );";
 
     $result=pg_query($GLOBALS['connect'], $query);
 
@@ -78,7 +114,7 @@ function create_table_structure($params)
         echo "table not created \r\n";
     }
     else
-    {
+    {  echo "table has been created\r\n";
         // Add triggers to ensure the values inserted and updated in the respective columns are correct
 
          $result=create_trigger();
@@ -87,21 +123,14 @@ function create_table_structure($params)
         {
             echo "Trigger not working \r\n";
         }
-        else
-        {
-            //triggers have been applied & table is ready for data insertion
-               check_file_is_csv($params);
-
-
-        }
+       
 
     }
 
 }
 function check_file_is_csv($params)
 {
-    if(isset($params['file'])) //if a file has been provided
-    {
+    
         //Check if the argument passed is a csv file
 
 
@@ -109,7 +138,7 @@ function check_file_is_csv($params)
         if($checkForCsv[1]=='csv')
         {
             //Open the csv file
-            $file=fopen("/var/www/CSVReader/".$params['file'],'r');
+            $file=fopen("./".$params['file'],'r');
             if($file)
             { //Read file
 
@@ -129,20 +158,13 @@ function check_file_is_csv($params)
         {
             echo "the file is not a CSV file \r\n";
         }
-}
- else
- {
-     //file parameter has not been provided
-     echo "Please provide a filename \r\n";
 
- }
 }
 function create_trigger()
 {
    // create triggers to insert and update values properly , with lowercase emails and uppercase name and surname
 
-    $tQuery ="
-                  CREATE OR REPLACE FUNCTION  lowercase_email_on_insert() RETURNS trigger AS \$lowercase_email_on_insert$
+    $tQuery ="CREATE OR REPLACE FUNCTION  lowercase_email_on_insert() RETURNS trigger AS \$lowercase_email_on_insert$
                                  BEGIN        
                                     NEW.email = LOWER(NEW.email);
                                 RETURN NEW;
@@ -151,25 +173,7 @@ function create_trigger()
 
                   CREATE TRIGGER lowercase_email_on_insert_trigger BEFORE INSERT OR UPDATE ON users
                   FOR EACH ROW EXECUTE PROCEDURE lowercase_email_on_insert();";
-    $tQuery.="CREATE OR REPLACE FUNCTION  uppercase_name_on_insert() RETURNS trigger AS \$uppercase_name_on_insert$
-                                  BEGIN        
-                                       NEW.name = UPPER(NEW.name);
-                                  RETURN NEW;
-                                  END;
-                    \$uppercase_name_on_insert$ LANGUAGE plpgsql;
-
-                  CREATE TRIGGER uppercase_name_on_insert_trigger BEFORE INSERT OR UPDATE ON users
-                  FOR EACH ROW EXECUTE PROCEDURE uppercase_name_on_insert();";
-
-    $tQuery.="CREATE OR REPLACE FUNCTION  uppercase_surname_on_insert() RETURNS trigger AS \$uppercase_surname_on_insert$
-                                  BEGIN        
-                                    NEW.surname = UPPER(NEW.surname);
-                                     RETURN NEW;
-                                   END;
-                     \$uppercase_surname_on_insert$ LANGUAGE plpgsql;
-
-                     CREATE TRIGGER uppercase_surname_on_insert_trigger BEFORE INSERT OR UPDATE ON users
-                     FOR EACH ROW EXECUTE PROCEDURE uppercase_surname_on_insert();";
+   
 
      $result= pg_query($GLOBALS['connect'],$tQuery);
     return $result; // return trigger
@@ -210,7 +214,8 @@ function file_read($file)
 }
 function insert_record_in_table($name,$surname,$email)
 {
-    //insert record in Database
+   $name=ucfirst(strtolower($name));
+   $surname=ucfirst(strtolower($surname));
 
     $insertStmnt = "INSERT INTO users(name,surname,email) VALUES($$$name$$,$$$surname$$,$$$email$$);";
 
