@@ -5,7 +5,7 @@ this script takes in command line arguments , please make sure that the correct 
 
 the files need to be in your CSVReader folder
 example run
-tazeen > php user_upload.php --create_table --file <filename> --database <databasename> -u user -p pass -h host
+tazeen > php user_upload.php --create_table --file  <filename> --database  <databasename> -u user -p pass -h host
  
  tazeen > php user_upload.php --create_table directive creates a table named users
 
