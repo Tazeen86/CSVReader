@@ -3,9 +3,11 @@ PHP script to read a CSV file and insert records from the file to a postgresql d
 
 this script takes in command line arguments , please make sure that the correct path is used to store the csv file 
 
-the files need to be in /var/www/CSVReader
+the files need to be in your CSVReader folder
 example run
-tazeen > php /var/www/CSVReader/user_upload.php --file <filename> --database <databasename> -u user -p pass -h host
+tazeen > php user_upload.php --create_table --file <filename> --database <databasename> -u user -p pass -h host
+ 
+ tazeen > php user_upload.php --create_table directive creates a table named users
 
 The script take database name , username , password , filename and inserts the data from the file into a PostgreSQL database
 
